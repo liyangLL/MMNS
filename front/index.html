@@ -15,14 +15,14 @@
     <div class="logo">
       <div class="logo-icon">PM</div>
       <div class="logo-text">
-        <h1>PM2.5移动监测地图系统</h1>
-        <p>道路实时排放监测平台</p>
+        <h1>PM2.5 Mobile Monitoring System</h1>
+        <p>Real-time monitoring platform for road pollutant concentration</p>
       </div>
     </div>
     <div class="system-info">
       <div class="status-indicator running" id="systemStatus">
         <div class="indicator running"></div>
-        <span>监测运行中</span>
+        <span>Monitoring in operation</span>
       </div>
     </div>
   </div>
@@ -31,34 +31,34 @@
   <div class="main-container">
     <!-- 左侧菜单 -->
     <div class="sidebar">
-      <div class="menu-title">主菜单</div>
+      <div class="menu-title">Menu</div>
       <div class="menu-item active" data-target="home">
         <i>🏠</i>
-        <span>主页</span>
+        <span>Home</span>
       </div>
       <div class="menu-item" data-target="trajector">
         <i>🛰️</i>
-        <span>车辆轨迹</span>
+        <span>Movement Track</span>
       </div>
       <div class="menu-item" data-target="raster">
         <i>🌐</i>
-        <span>格栅地图</span>
+        <span>Grille Map</span>
       </div>
       <div class="menu-item" data-target="stats">
         <i>📊</i>
-        <span>数据统计</span>
+        <span>Statistics</span>
       </div>
       <div class="menu-item" data-target="devices">
         <i>📱</i>
-        <span>设备管理</span>
+        <span>Devices</span>
       </div>
       <div class="menu-item" data-target="control">
         <i>⚙️</i>
-        <span>系统控制</span>
+        <span>System Control</span>
       </div>
       <div class="menu-item" data-target="info">
         <i>ℹ️</i>
-        <span>系统信息</span>
+        <span>Information</span>
       </div>
     </div>
 
@@ -75,30 +75,30 @@
           <!-- API状态 -->
           <div class="api-status">
             <div class="api-indicator" id="apiIndicator"></div>
-            <span>API状态：<span id="apiStatusText">连接中...</span></span>
+            <span>API Status:<span id="apiStatusText">Connecting...</span></span>
           </div>
           <div class="legend">
-            <div class="legend-title">PM2.5 空气质量指标</div>
+            <div class="legend-title">Air quality indicators</div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #2ecc71;"></div>
-              <div class="legend-label">良好 (0-35 μg/m³)</div>
+              <div class="legend-label">Good(0-35 μg/m³)</div>
             </div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #f1c40f;"></div>
-              <div class="legend-label">轻度污染 (36-75 μg/m³)</div>
+              <div class="legend-label">Slight(36-75 μg/m³)</div>
             </div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #e67e22;"></div>
-              <div class="legend-label">中度污染 (76-115 μg/m³)</div>
+              <div class="legend-label">Mod(76-115 μg/m³)</div>
             </div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #e74c3c;"></div>
-              <div class="legend-label">重度污染 (116+ μg/m³)</div>
+              <div class="legend-label">Severe(116+ μg/m³)</div>
             </div>
           </div>
           <div class="status-bar">
             <div class="indicator"></div>
-            <span>时间: <span id="mapLastUpdate">2025-07-18 14:28:45</span></span>
+            <span>Time: <span id="mapLastUpdate">2025-07-18 14:28:45</span></span>
           </div>
         </div>
       </div>
@@ -107,28 +107,28 @@
       <div class="content-panel" id="trajectorContent">
         <div class="map-container">
           <div class="trajectory-header">
-            <input class = "filter-input" type="text" id="trajectoryFilter" placeholder="搜索车辆ID...">
-            <button id="loadTrajectoryBtn">加载轨迹</button>
-            <button id="clearTrajectoryBtn">清除轨迹</button>
+            <input class = "filter-input" type="text" id="trajectoryFilter" placeholder="Search device ID...">
+            <button id="loadTrajectoryBtn">Loading</button>
+            <button id="clearTrajectoryBtn">Clear</button>
           </div>
           <div id="trajectorDiv">
             <div class="legend">
-            <div class="legend-title">PM2.5 空气质量指标</div>
+            <div class="legend-title">Air quality indicators</div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #2ecc71;"></div>
-              <div class="legend-label">良好 (0-35 μg/m³)</div>
+              <div class="legend-label">Good(0-35 μg/m³)</div>
             </div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #f1c40f;"></div>
-              <div class="legend-label">轻度污染 (36-75 μg/m³)</div>
+              <div class="legend-label">Slight(36-75 μg/m³)</div>
             </div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #e67e22;"></div>
-              <div class="legend-label">中度污染 (76-115 μg/m³)</div>
+              <div class="legend-label">Mod(76-115 μg/m³)</div>
             </div>
             <div class="legend-item">
               <div class="legend-color" style="background-color: #e74c3c;"></div>
-              <div class="legend-label">重度污染 (116+ μg/m³)</div>
+              <div class="legend-label">Severe(116+ μg/m³)</div>
             </div>
           </div>
           </div>
@@ -141,16 +141,16 @@
         <div class="devices-header">
           <div class="devices-title">
             <i class="fas fa-mobile-alt"></i>
-            <h2>移动监测设备管理</h2>
+            <h2>Monitoring devices</h2>
           </div>
           <div class="devices-filter">
-            <input type="text" class="filter-input" id="deviceFilter" placeholder="搜索设备ID...">
+            <input type="text" class="filter-input" id="deviceFilter" placeholder="Search device ID...">
             <select class="filter-input" id="statusFilter">
-              <option value="all">所有状态</option>
-              <option value="good">良好</option>
-              <option value="moderate">轻度污染</option>
-              <option value="unhealthy">中度污染</option>
-              <option value="hazardous">重度污染</option>
+              <option value="all">All Status</option>
+              <option value="good">Good</option>
+              <option value="moderate">Slight</option>
+              <option value="unhealthy">Moderate</option>
+              <option value="hazardous">Severe</option>
             </select>
           </div>
         </div>
@@ -166,33 +166,33 @@
           <div class="panel-section" id="panelSection">
             <div class="section-title">
               <i>⚙️</i>
-              <h2>系统控制面板</h2>
+              <h2>System control panel</h2>
             </div>
             
             <div class="status-indicator-panel">
               <div class="indicator-panel" id="statusIndicator"></div>
-              <span id="statusText">监测运行中</span>
+              <span id="statusText">Monitoring in operation</span>
             </div>
             
             <div class="control-buttons">
               <button class="control-btn btn-primary" id="startBtn">
-                <span>▶️</span> 开始监测
+                <span>▶️</span> Start monitoring
               </button>
               <button class="control-btn btn-warning" id="pauseBtn">
-                <span>⏸️</span> 暂停监测
+                <span>⏸️</span> Pause monitoring
               </button>
               <button class="control-btn btn-danger" id="clearBtn">
-                <span>🗑️</span> 清除数据
+                <span>🗑️</span> Clear Data
               </button>
               <button class="control-btn btn-primary" id="addPointBtn">
-                <span>🔃</span> 手动更新
+                <span>🔃</span> Manual Update
               </button>
             </div>
             
             <div class="slider-container">
               <div class="slider-label">
-                <span>更新频率</span>
-                <span id="freqValue">5 秒</span>
+                <span>Update frequency</span>
+                <span id="freqValue">5 s</span>
               </div>
               <input type="range" min="1" max="10" value="5" id="freqSlider">
             </div>
@@ -206,24 +206,24 @@
           <div class="panel-section">
             <div class="section-title">
               <i>📊</i>
-              <h2>数据统计</h2>
+              <h2>Statistics</h2>
             </div>
             
             <div class="data-stats">
               <div class="data-stat">
-                <h3>监测点数量</h3>
+                <h3>Number of monitoring points</h3>
                 <div class="value" id="pointsCount">0</div>
               </div>
               <div class="data-stat">
-                <h3>数据总数</h3>
+                <h3>Total data</h3>
                 <div class="value" id="dataCount">0</div>
               </div>
               <div class="data-stat">
-                <h3>运行时间</h3>
+                <h3>Run time</h3>
                 <div class="value" id="uptime">00:00:00</div>
               </div>
               <div class="data-stat">
-                <h3>最后更新</h3>
+                <h3>Last Updated</h3>
                 <div class="value" id="lastUpdate">--:--:--</div>
               </div>
             </div>
@@ -232,32 +232,53 @@
           <div class="panel-section" style="grid-column: span 2;">
             <div class="section-title">
               <i>📝</i>
-              <h2>接收数据</h2>
+              <h2>Received data</h2>
             </div>
             
             <div class="data-output-container">
               <div class="data-output-title">
-                <span>实时数据流</span>
+                <span>Real-time data streaming</span>
                 <button class="clear-data-btn" id="clearOutputBtn">清除</button>
               </div>
               <div class="data-output" id="dataOutput">
-                <div>[系统] 正在初始化监测系统...</div>
+                <div>[System] Initializing monitoring system...</div>
               </div>
             </div>
           </div>
           <div class="panel-section" style="grid-column: span 2;">
             <div class="section-title">
               <i>📈</i>
-              <h2>数据趋势图</h2>
-              <button class="refresh-chart-btn" id="refreshChartBtn" >
-                <i class="fas fa-sync-alt"></i> 刷新
-
+              <h2>Data trend chart</h2>
+              <div class="filter-part">
+                    <input type="date" id="startDate" class="filter-input" placeholder="Start date">
+                    <input type="date" id="endDate" class="filter-input" placeholder="End date">
+                    <input class = "filter-input" type="text" id="carFilter" placeholder="Search vehicle ID...">
+                    <button class="refresh-chart-btn" id="refreshChartBtn" >
+                      <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+              </div>         
             </div>
-            
             <div class="chart-container" id ="chartContainer">
               <!-- <canvas id="dataChart"></canvas> -->
             </div>
           </div>
+          
+          <div class="panel-section" style="grid-column: span 2;">
+            <div class="section-title">
+              <i>📍</i>
+              <h2>Concentration ranking</h2>
+              <button class="refresh-rank-btn" id="refreshRankBtn" >
+              <i class="fas fa-sync-alt"></i> Refresh
+              </button>
+            </div>
+           
+            <div class="rank-container" id ="rankContainer">
+              <canvas id="dataChart"></canvas>
+            </div>
+           
+
+
+           </div>
         </div>
       </div>
       
@@ -265,43 +286,43 @@
       <div class="content-panel" id="infoContent">
         <div class="system-info-panel">
           <div class="info-header">
-            <h2>系统信息</h2>
-            <p>PM2.5移动监测地图系统技术详情</p>
+            <h2>System Information</h2>
+            <p>Technical Details</p>
           </div>
           
           <div class="info-grid">
             <div class="info-card">
-              <h3>系统状态</h3>
-              <p><strong>运行状态：</strong>正常</p>
-              <p><strong>最后检测：</strong>2025-7-16 14:30:22</p>
-              <p><strong>系统负载：</strong>42%</p>
+              <h3>System Status</h3>
+              <p><strong>Running status: </strong>Normal</p>
+              <p><strong>Last updated: </strong>2025-7-16 14:30:22</p>
+              <p><strong>System Load: </strong>52.0%</p>
             </div>
             
             <div class="info-card">
-              <h3>版本信息</h3>
-              <p><strong>软件版本：</strong>v2.4.0</p>
-              <p><strong>地图引擎：</strong>Geoscene 4.29</p>
-              <p><strong>数据库：</strong>PostgreSQL 14.5</p>
+              <h3>Version Information</h3>
+              <p><strong>Software Version: </strong>v5.2.0</p>
+              <p><strong>Map Engine: </strong>Geoscene 4.29</p>
+              <p><strong>Database: </strong>MySQL 8.0.32</p>
             </div>
             
             <div class="info-card">
-              <h3>服务连接</h3>
-              <p><strong>数据API：</strong>http://localhost:5000/data</p>
-              <p><strong>地图服务：</strong>http://localhost:5000/map</p>
-              <p><strong>格栅服务：</strong>http://localhost:5000/raster</p>
-              <p><strong>状态：</strong>所有服务连接正常</p>
+              <h3>Service Connection</h3>
+              <p><strong>Data API: </strong>http://localhost:5000/data</p>
+              <p><strong>Map Services: </strong>http://localhost:5000/map</p>
+              <p><strong>Grille Services: </strong>http://localhost:5000/raster</p>
+              <p><strong>State: </strong>All services connected normally</p>
             </div>
             
             <div class="info-card">
-              <h3>技术支持</h3>
-              <p><strong>单位：</strong>RRES项目</p>
-              <p><strong>联系人：</strong>Li_Yang</p>
-              <p><strong>电话：</strong>138-XXXX-XXXX</p>
+              <h3>Technical Support</h3>
+              <p><strong>Unit: </strong>CUGB</p>
+              <p><strong>Contact: </strong>Li_Yang</p>
+              <p><strong>Email: </strong>3219522051@qq.com</p>
             </div>
             
             <div class="info-card" style="grid-column: span 2;">
-              <h3>系统功能</h3>
-              <p>本系统提供PM2.5及其他空气质量参数的实时监测、历史数据分析、污染源追踪，道路排放估计等功能。系统每5秒自动更新一次移动监测数据，支持手动调整更新频率。</p>
+              <h3>Functional description</h3>
+              <p>This system provides functions such as real-time monitoring of PM2.5, historical data analysis, and road emission estimation.</p>
             </div>
             
 
@@ -313,25 +334,25 @@
       <div class="content-panel" id="rasterContent">
         <div class="raster-container">
           <div class="raster-header">
-            <h2><i class="fas fa-layer-group"></i> PM2.5格栅分布图</h2>
+            <h2><i class="fas fa-layer-group"></i>PM2.5 grid map</h2>
             <div class="raster-controls">
               <button class="raster-btn" id="refreshRasterBtn">
-                <i class="fas fa-sync-alt"></i> 刷新数据
+                <i class="fas fa-sync-alt"></i> Refresh Data
               </button>
               <div class="time-info">
-                最后更新时间: <span id="rasterLastUpdate">--:--:--</span>
+                Last updated:<span id="rasterLastUpdate">--:--:--</span>
               </div>
             </div>
           </div>
           <div class="raster-map-container">
-            <img id="rasterImage" alt="PM2.5格栅分布图">
+            <img id="rasterImage" alt="PM2.5 Grid map">
             <div class="loading-overlay" id="rasterLoadingOverlay" style="display: none;">
               <div class="loading-spinner"></div>
-              <p>正在加载格栅数据...</p>
+              <p>Loading grid data...</p>
             </div>
           </div>
           <div class="raster-legend">
-            <div class="legend-title">PM2.5浓度等级 (μg/m³)</div>
+            <div class="legend-title">PM2.5 concentration level (μg/m³)</div>
             <div class="legend-items">
               <div class="legend-item">
                 <div class="legend-color" style="background-color: #00b050;"></div>
@@ -366,15 +387,15 @@
           <div class="raster-stats">
             <div class="stat-item">
               <i class="fas fa-chart-bar"></i>
-              <span>最高浓度: <strong id="maxPm25">--</strong> μg/m³</span>
+              <span>Maximum concentration: <strong id="maxPm25">--</strong> μg/m³</span>
             </div>
             <div class="stat-item">
               <i class="fas fa-chart-line"></i>
-              <span>平均浓度: <strong id="avgPm25">--</strong> μg/m³</span>
+              <span>Average concentration: <strong id="avgPm25">--</strong> μg/m³</span>
             </div>
             <div class="stat-item">
               <i class="fas fa-map-marker-alt"></i>
-              <span>覆盖面积: <strong id="coverageArea">--</strong> km²</span>
+              <span>Coverage area: <strong id="coverageArea">--</strong> km²</span>
             </div>
           </div>
         </div>
