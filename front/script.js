@@ -36,36 +36,36 @@ setInterval(updateTime, 1000);
 
 // 更新频率滑块事件
 document.getElementById('freqSlider').addEventListener('input', function() {
-  document.getElementById('freqValue').textContent = this.value + ' 秒';
+  document.getElementById('freqValue').textContent = this.value + ' s';
 });
 
 // 清除数据按钮事件
 document.getElementById('clearOutputBtn').addEventListener('click', function() {
-  document.getElementById('dataOutput').innerHTML = '<div>[系统] 数据输出已清空</div>';
+  document.getElementById('dataOutput').innerHTML = '<div>[System] Data output cleared</div>';
 });
 
 // 控制按钮事件
 document.getElementById('startBtn').addEventListener('click', function() {
   document.getElementById('systemStatus').className = 'status-indicator running';
   document.getElementById('systemStatus').querySelector('.indicator').className = 'indicator running';
-  document.getElementById('systemStatus').querySelector('span').textContent = '监测运行中';
+  document.getElementById('systemStatus').querySelector('span').textContent = 'Monitoring in operation';
   
-  document.getElementById('statusText').textContent = '监测运行中';
+  document.getElementById('statusText').textContent = 'Monitoring in operation';
   document.getElementById('statusIndicator').style.backgroundColor = '#4caf50';
 });
 
 document.getElementById('pauseBtn').addEventListener('click', function() {
   document.getElementById('systemStatus').className = 'status-indicator paused';
   document.getElementById('systemStatus').querySelector('.indicator').className = 'indicator paused';
-  document.getElementById('systemStatus').querySelector('span').textContent = '监测已暂停';
+  document.getElementById('systemStatus').querySelector('span').textContent = 'Monitoring Paused';
   
-  document.getElementById('statusText').textContent = '监测已暂停';
+  document.getElementById('statusText').textContent = 'Monitoring Paused';
   document.getElementById('statusIndicator').style.backgroundColor = '#f9a825';
 });
 
 document.getElementById('clearBtn').addEventListener('click', function() {
-  if (confirm('确定要清除所有监测数据吗？此操作不可撤销。')) {
-    document.getElementById('dataOutput').innerHTML = '<div>[系统] 所有监测数据已清除</div>';
+  if (confirm('Are you sure you want to clear all monitoring data? This operation is irreversible.')) {
+    document.getElementById('dataOutput').innerHTML = '<div>[System] All monitoring data has been cleared</div>';
     document.getElementById('pointsCount').textContent = '0';
     document.getElementById('dataCount').textContent = '0';
   }
@@ -77,7 +77,7 @@ document.getElementById('addPointBtn').addEventListener('click', function() {
   const time = now.toLocaleTimeString('zh-CN', {hour12: false});
   
   const newEntry = document.createElement('div');
-  newEntry.textContent = `[${time}] 手动更新：新增2个监测点`;
+  newEntry.textContent = `[${time}] Manual update: 2 new monitoring points added`;
   output.insertBefore(newEntry, output.firstChild);
   
   // 更新统计
@@ -274,22 +274,22 @@ function drawSimpleTrajectory(points) {
     .then(response => response.json())
     .then(data => {
       if (data.status === "success") {
-        setApiStatus("success", "轨迹数据获取成功");
+        setApiStatus("success", "Track data acquisition successful");
         if (data.data && data.data.length > 0) {
           // 传递完整点数据而不是仅坐标
-          console.log("轨迹数据:", data.data);
+          console.log("Trajectory data:", data.data);
           drawTrajectory(data.data);
           
         } else {
-          setApiStatus("error", "轨迹数据为空");
+          setApiStatus("error", "Track data is empty");
         }
       } else {
-        setApiStatus("error", "轨迹数据获取失败: " + data.message);
+        setApiStatus("error", "Failed to obtain trajectory data: " + data.message);
       }
     })
     .catch(error => {
-      console.error('请求轨迹数据失败:', error);
-      setApiStatus("error", "轨迹数据请求失败: " + error.message);
+      console.error('Requesting trajectory data failed:', error);
+      setApiStatus("error", "Track data request failed:" + error.message);
     });
 }
 
@@ -302,10 +302,10 @@ function drawSimpleTrajectory(points) {
   }
   
   function getStatusClass(pmValue) {
-    if (pmValue <= 35) return "良好";
-    else if (pmValue <= 75) return "轻度污染";
-    else if (pmValue <= 115) return "中度污染";
-    else return "重度污染";
+    if (pmValue <= 35) return " Good";
+    else if (pmValue <= 75) return " Slight pollution";
+    else if (pmValue <= 115) return " Moderate pollution";
+    else return " Severe pollution";
   }
   
   function getStatusClassColor(pmValue) {
@@ -348,7 +348,7 @@ function drawSimpleTrajectory(points) {
   const rasterImage = document.getElementById("rasterImage");
   const vehicleId = document.getElementById("trajectoryFilter");
   const refreshChartBtn = document.getElementById("refreshChartBtn");
-  
+  const refreshRankBtn = document.getElementById("refreshRankBtn");
   // 系统状态
   let isMonitoring = true;
   let updateInterval;
@@ -365,19 +365,19 @@ function drawSimpleTrajectory(points) {
   
   // 更新地图上的点
  function updatePoint() {
-  setApiStatus("loading", "请求数据中...");
+  setApiStatus("loading", " Requesting data...");
   
   // 向后端发送请求获取数据
   fetch('http://localhost:5000/data')
     .then(response => {
       if (!response.ok) {
-        throw new Error(`HTTP错误! 状态: ${response.status}`);
+        throw new Error(`HTTP Error! Status: ${response.status}`);
       }
       return response.json();
     })
     .then(data => {
       if (data.status === "success") {
-        setApiStatus("success", `获取${data.sampled}个数据点成功`);
+        setApiStatus("success", ` Successfully obtained ${data.sampled} data points`);
         
         // 处理所有返回的数据点
         data.data.forEach(point => {
@@ -389,12 +389,12 @@ function drawSimpleTrajectory(points) {
           });
         });
       } else {
-        setApiStatus("error", `数据获取失败: ${data.message || '未知错误'}`);
+        setApiStatus("error", `Data acquisition failed: ${data.message || 'Unknown error'}`);
       }
     })
     .catch(error => {
-      console.error('请求失败:', error);
-      setApiStatus("error", `API请求失败: ${error.message}`);
+      console.error('Request failed:', error);
+      setApiStatus("error", `API request failed: ${error.message}`);
     });
 }
   
@@ -406,7 +406,7 @@ function drawSimpleTrajectory(points) {
     const sensorId = dataPoint.sensor_id;
     
     // 生成监测点名称
-    let pointName = `设备 #${sensorId}`;
+    let pointName = `Equipment #${sensorId}`;
     
     // 检查是否已存在相同传感器ID的点
     let existingPoint = monitoringPoints.find(p => p.sensorId === sensorId);
@@ -490,7 +490,7 @@ function drawSimpleTrajectory(points) {
         }
       },
       popupTemplate: {
-        title: "{location} - PM2.5 监测点",
+        title: "{location} - PM2.5 Monitoring points",
         content: `
           <div class="popup-content">
             <div class="popup-header">
@@ -504,23 +504,23 @@ function drawSimpleTrajectory(points) {
             
             <div class="popup-pm25">
               <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <span>PM2.5 值</span>
-                <strong style="font-size: 24px;">${pmValue} μg/m³</strong>
+                <span>PM2.5 Value:</span>
+                <strong style="font-size: 24px;"> ${pmValue} μg/m³</strong>
               </div>
               <div style="display: flex; justify-content: space-between;">
-                <span>空气质量</span>
+                <span>Air quality: </span>
                 <strong style="color: rgb(${getColorByPm(pmValue).join(',')}); 
                         font-size: 18px;">${getStatusClass(pmValue)}</strong>
               </div>
             </div>
             
             <div class="popup-advice">
-              <h3 style="margin-top: 0; color: #1a73e8;">健康建议</h3>
+              <h3 style="margin-top: 0; color: #1a73e8;">Health tips</h3>
               <p>
-                ${pmValue <= 35 ? '空气质量优，适合户外活动' : 
-                  pmValue <= 75 ? '空气质量良好，敏感人群应减少户外活动' : 
-                  pmValue <= 115 ? '空气污染较严重，建议减少户外活动' : 
-                  '空气污染严重，避免户外活动'}
+                ${pmValue <= 35 ? 'Excellent air quality, suitable for outdoor activities' : 
+                  pmValue <= 75 ? 'Air quality is good, sensitive people should reduce outdoor activities' : 
+                  pmValue <= 115 ? 'Air pollution is serious, it is recommended to reduce outdoor activities' : 
+                  'Air pollution is serious, avoid outdoor activities'}
               </p>
             </div>
           </div>
@@ -549,7 +549,7 @@ function drawSimpleTrajectory(points) {
     uptime.textContent = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     
     // 更新接收数据文本框
-    const dataEntry = `[${timeLabel}] ${pointName} | 经度: ${lon.toFixed(4)} | 纬度: ${lat.toFixed(4)} | PM2.5: ${pmValue} μg/m³ | ${getStatusClass(pmValue)}`;
+    const dataEntry = `[${timeLabel}] ${pointName} | Longitude: ${lon.toFixed(4)} | Latitude: ${lat.toFixed(4)} | PM2.5: ${pmValue} μg/m³ | ${getStatusClass(pmValue)}`;
     receivedData.push(dataEntry);
     
     // 限制显示的数据条数
@@ -587,36 +587,36 @@ function drawSimpleTrajectory(points) {
       
       deviceCard.innerHTML = `
         <div class="device-header">
-          <div class="device-id">设备 #${device.sensorId}</div>
-          <div class="device-status">在线</div>
+          <div class="device-id">Equipment #${device.sensorId}</div>
+          <div class="device-status">Online</div>
         </div>
         <div class="device-info">
           <div class="info-item">
-            <span class="info-label">PM2.5值</span>
+            <span class="info-label">PM2.5 value</span>
             <span class="info-value">${device.pm25} <small>μg/m³</small></span>
           </div>
           <div class="info-item">
-            <span class="info-label">空气质量</span>
+            <span class="info-label">Air quality</span>
             <span class="info-value ${statusClass}">${getStatusClass(device.pm25)}</span>
           </div>
           <div class="info-item">
-            <span class="info-label">最后更新</span>
+            <span class="info-label">Last updated</span>
             <span class="info-value">${lastUpdateTime}</span>
           </div>
           <div class="info-item">
-            <span class="info-label">运行时间</span>
+            <span class="info-label">Run time</span>
             <span class="info-value">${uptimeStr}</span>
           </div>
         </div>
         <div class="device-location">
-          <i class="fas fa-map-marker-alt"></i> 经度: ${device.lon.toFixed(4)}, 纬度: ${device.lat.toFixed(4)}
+          <i class="fas fa-map-marker-alt"></i> Longitude: ${device.lon.toFixed(4)}, Latitude: ${device.lat.toFixed(4)}
         </div>
         <div class="device-actions">
           <button class="action-btn details-btn" onclick="showDeviceDetails(${device.sensorId})">
-            <i class="fas fa-info-circle"></i> 详情
+            <i class="fas fa-info-circle"></i> Details
           </button>
           <button class="action-btn track-btn" onclick="showHistory(${device.sensorId})">
-            <i class="fas fa-history"></i> 历史
+            <i class="fas fa-history"></i> History
           </button>
         </div>
       `;
@@ -695,7 +695,7 @@ function drawSimpleTrajectory(points) {
   // 频率滑块事件
   freqSlider.addEventListener("input", function() {
     updateFrequency = this.value * 1000;
-    freqValue.textContent = this.value + " 秒";
+    freqValue.textContent = this.value + " s";
     
     if (isMonitoring) {
       clearInterval(updateInterval);
@@ -710,7 +710,7 @@ function drawSimpleTrajectory(points) {
       updatePoint(); // 立即获取一次数据
       updateInterval = setInterval(updatePoint, updateFrequency);
       statusIndicator.style.backgroundColor = "#4caf50";
-      statusText.textContent = "监测运行中";
+      statusText.textContent = "Monitoring in operation";
       startBtn.disabled = true;
       pauseBtn.disabled = false;
     }
@@ -730,7 +730,7 @@ function drawSimpleTrajectory(points) {
 
   // 清除数据
   function clearData() {
-    if (confirm('确定要清除所有监测数据吗？此操作不可撤销。')) {
+    if (confirm('Are you sure you want to clear all monitoring data? This operation is irreversible.')) {
       graphicsLayer.removeAll();
       monitoringPoints = [];
       dataCounter = 0;
@@ -747,7 +747,7 @@ function drawSimpleTrajectory(points) {
   // 清除输出数据
   function clearOutput() {
     receivedData = [];
-    dataOutput.innerHTML = "<div>[系统] 数据输出已清空</div>";
+    dataOutput.innerHTML = "<div>[System] Data output cleared</div>";
   }
   
   // 格栅地图功能
@@ -758,8 +758,9 @@ function drawSimpleTrajectory(points) {
 
     setTimeout(() => {
 
-      const timestamp = new Date().getTime();
+      // 加载格栅图像
       rasterImage.src = `http://localhost:5000/raster`;
+      
       
       // 更新最后更新时间
       const now = new Date();
@@ -772,8 +773,7 @@ function drawSimpleTrajectory(points) {
         second: '2-digit'
       });
       
-      // 更新统计信息
-      updateRasterStats();
+    
       
       // 隐藏加载指示器
       rasterLoadingOverlay.style.display = "none";
@@ -782,22 +782,14 @@ function drawSimpleTrajectory(points) {
       const time = now.toLocaleTimeString('zh-CN', {hour12: false});
       const output = document.getElementById("dataOutput");
       const newEntry = document.createElement('div');
-      newEntry.textContent = `[${time}] 格栅地图已更新`;
+      newEntry.textContent = `[${time}] Grid map updated`;
       output.insertBefore(newEntry, output.firstChild);
-    }, 1500);
+    }, 200);
+
+
   }
   
-  // 更新格栅统计信息
-  function updateRasterStats() {
-    // 模拟统计数据
-    const maxPm25Value = Math.floor(Math.random() * 100) + 150;
-    const avgPm25Value = Math.floor(Math.random() * 40) + 60;
-    const coverageAreaValue = (Math.random() * 100 + 500).toFixed(1);
-    
-    maxPm25.textContent = maxPm25Value;
-    avgPm25.textContent = avgPm25Value;
-    coverageArea.textContent = coverageAreaValue;
-  }
+  
   
   // 刷新格栅数据按钮事件
   refreshRasterBtn.addEventListener('click', function() {
@@ -819,8 +811,8 @@ function drawSimpleTrajectory(points) {
     document.getElementById('loadingOverlay').style.display = 'none';
     startMonitoring();
   }).catch(err => {
-    console.error("地图加载失败:", err);
-    document.getElementById('loadingOverlay').innerHTML = "<div style='text-align:center;color:#e53935;'>地图加载失败，请刷新页面</div>";
+    console.error("Map loading failed:", err);
+    document.getElementById('loadingOverlay').innerHTML = "<div style='text-align:center;color:#e53935;'>Map loading failed, please refresh the page</div>";
   });
   
   
@@ -828,27 +820,208 @@ function drawSimpleTrajectory(points) {
   window.showDeviceDetails = function(sensorId) {
     const device = monitoringPoints.find(d => d.sensorId === sensorId);
     if (device) {
-      alert(`设备 #${sensorId} 详细信息\n\nPM2.5值: ${device.pm25} μg/m³\n空气质量: ${getStatusClass(device.pm25)}\n位置: 经度 ${device.lon.toFixed(4)}, 纬度 ${device.lat.toFixed(4)}`);
+      alert(`Equipment #${sensorId} Details\n\nPM2.5 value: ${device.pm25} μg/m³\nAir quality : ${getStatusClass(device.pm25)}\nLocation: Longitude ${device.lon.toFixed(4)}, Latitude ${device.lat.toFixed(4)}`);
     }
   };
   
   window.showHistory = function(sensorId) {
     const device = monitoringPoints.find(d => d.sensorId === sensorId);
     if (device) {
-      alert(`设备 #${sensorId} 历史数据\n\n最近位置: 经度 ${device.lon.toFixed(4)}, 纬度 ${device.lat.toFixed(4)}\n最后更新: ${device.lastUpdate.toLocaleString()}`);
+      alert(`Equipment #${sensorId} Historical data\n\nLast location: Longitude ${device.lon.toFixed(4)}, Latitude ${device.lat.toFixed(4)}\nLast updated: ${device.lastUpdate.toLocaleString()}`);
     }
   };
 
 const chartDom = document.getElementById('chartContainer');
+const rankDom = document.getElementById('rankContainer');
 let myChart ;
+let rankChart;
+
 refreshChartBtn.addEventListener('click', function() {
   loadChart();  
 } );
 
+refreshRankBtn.addEventListener('click', function() {
+  loadRank();
+} );
+
+function loadRank() {
+  if (rankChart) {
+    rankChart.dispose();
+  }   
+  rankChart = echarts.init(rankDom);
+  
+  // 获取数据并绘制图表
+  fetch('http://localhost:5000/rank')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Abnormal network response');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // 检查数据是否为空
+      if (!data || data.length === 0) {
+        throw new Error('No ranking data was obtained');
+      }
+      
+      // 按排名排序（升序）
+      data.sort((a, b) => b.rank - a.rank);
+      
+      // 准备图表数据
+      const deviceIDs = data.map(item => `ID ${item.deviceID}`);
+      const averages = data.map(item => item.average);
+      
+      // 根据浓度值设置颜色
+      const colors = data.map(item => {
+        if (item.average < 35) return '#4CAF50'; // 优 - 绿色
+        if (item.average < 75) return '#FFC107'; // 良 - 黄色
+        if (item.average < 115) return '#FF9800'; // 轻度污染 - 橙色
+        return '#F44336'; // 重度污染 - 红色
+      });
+      
+      // 配置图表选项
+      const option = {
+        title: {
+          text: 'Equipment PM2.5 concentration ranking',
+          left: 'center',
+          textStyle: {
+            fontSize: 18,
+            fontWeight: 'bold'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          },
+          formatter: function(params) {
+            const item = data[params[0].dataIndex];
+            return `
+              <div><b>Equipment ${item.deviceID}</b></div>
+              <div>Rank: ${item.rank}</div>
+              <div>PM2.5 average concentration: ${item.average.toFixed(1)} μg/m³</div>
+            `;
+          },
+          backgroundColor: 'rgba(50,50,50,0.9)',
+          borderColor: '#333',
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '8%',
+          top: '15%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'value',
+          name: 'Ave',
+          nameLocation: 'end',
+          nameTextStyle: {
+            padding: [10, 0, 0, 0]
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#666'
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              type: 'dashed'
+            }
+          }
+        },
+        yAxis: {
+          type: 'category',
+          data: deviceIDs,
+          axisLine: {
+            lineStyle: {
+              color: '#666'
+            }
+          },
+          axisLabel: {
+            fontSize: 14
+          },
+          axisTick: {
+            show: false
+          }
+        },
+        series: [
+          {
+            name: 'PM2.5 concentration',
+            type: 'bar',
+            data: averages,
+            itemStyle: {
+              color: function(params) {
+                return colors[params.dataIndex];
+              },
+              borderRadius: [0, 8, 8, 0]
+            },
+            label: {
+              show: true,
+              position: 'right',
+              formatter: '{c} μg/m³',
+              fontWeight: 'bold',
+              fontSize: 13
+            },
+            barWidth: '60%',
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 15,
+                shadowColor: 'rgba(0, 0, 0, 0.3)'
+              }
+            }
+          }
+        ],
+        // dataZoom: [
+        //   {
+        //     type: 'slider',
+        //     show: true,
+        //     yAxisIndex: 0,
+        //     filterMode: 'filter',
+        //     start: 0,
+        //     end: 100,
+        //     bottom: '3%',
+        //     height: 350,
+        //     handleSize: 20
+        //   }
+        // ]
+      };
+      
+      // 使用配置项显示图表
+      rankChart.setOption(option);
+      
+      // 窗口大小变化时自适应
+      window.addEventListener('resize', function() {
+        rankChart.resize();
+      });
+    })
+    .catch(error => {
+      console.error('Failed to obtain ranking data:', error);
+      rankChart.hideLoading();
+      // 显示错误信息
+      rankDom.innerHTML = `<div class="loading">Data loading failed: ${error.message}</div>`;
+    });
+}
+             
+    
+    
+          
+         
+
+ 
+
+                          
+        
+
+
+// 初始化图表
+
 function loadChart() {
-  if (myChart) {
-            myChart.dispose();
-  }
+  if (myChart) {myChart.dispose();}
+  
   myChart = echarts.init(chartDom);
 // 获取数据并绘制图表
   fetch('http://localhost:5000/line')
@@ -862,14 +1035,15 @@ function loadChart() {
           // 处理数据：分离时间和PM2.5值
           const timeData = data.map(item => item.time);
           const pm25Data = data.map(item => item.pm25);
-          
+          const longitudeData = data.map(item => item.longitude);
+          const latitudeData = data.map(item => item.latitude);
           // 隐藏加载动画
           myChart.hideLoading();
           
           // 配置图表选项
           const option = {
               title: {
-                  text: 'PM2.5 浓度变化趋势',
+                  text: 'PM2.5 Concentration trend',
                   left: 'center',
                   textStyle: {
                       fontSize: 18,
@@ -879,7 +1053,8 @@ function loadChart() {
               tooltip: {
                   trigger: 'axis',
                   formatter: function(params) {
-                      return `时间: ${params[0].name}<br/>PM2.5: ${params[0].value} μg/m³`;
+                      return `Time: ${params[0].name}<br/>PM2.5: ${params[0].value} μg/m³
+                      <br/>Location: (${longitudeData[params[0].dataIndex].toFixed(4)}, ${latitudeData[params[0].dataIndex].toFixed(4)})`;
                   },
                   backgroundColor: 'rgba(50,50,50,0.7)',
                   borderColor: '#333',
@@ -888,7 +1063,7 @@ function loadChart() {
                   }
               },
               legend: {
-                  data: ['PM2.5浓度'],
+                  data: ['PM2.5 Concentration'],
                   bottom: 10
               },
               grid: {
@@ -901,7 +1076,7 @@ function loadChart() {
               xAxis: {
                   type: 'category',
                   data: timeData,
-                  name: '时间',
+                  name: 'Time',
                   axisLine: {
                       lineStyle: {
                           color: '#666'
@@ -914,7 +1089,7 @@ function loadChart() {
               },
               yAxis: {
                   type: 'value',
-                  name: 'PM2.5浓度 (μg/m³)',
+                  name: 'Concentration (μg/m³)',
                   nameLocation: 'end',
                   nameTextStyle: {
                       padding: [0, 0, 0, 30] // 调整位置
@@ -932,7 +1107,7 @@ function loadChart() {
               },
               series: [
                   {
-                      name: 'PM2.5浓度',
+                      name: 'PM2.5 Concentration',
                       type: 'line',
                       data: pm25Data,
                       smooth: true, // 平滑曲线
@@ -1000,13 +1175,17 @@ function loadChart() {
           });
       })
       .catch(error => {
-          console.error('获取数据失败:', error);
+          console.error('Failed to obtain data:', error);
           myChart.hideLoading();
-          chartDom.innerHTML = `<div class="loading">数据加载失败: ${error.message}</div>`;
+          chartDom.innerHTML = `<div class="loading">Data loading failed: ${error.message}</div>`;
       });
 }
 
+
+
 loadChart(); // 初始加载图表
+loadRank(); // 初始加载排行榜
+loadRasterImage(); // 初始加载格栅地图
 updatePoint(); // 初始获取数据点
 // 定时更新数据点
 updateInterval = setInterval(updatePoint, updateFrequency);
